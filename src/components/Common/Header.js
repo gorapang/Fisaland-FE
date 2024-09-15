@@ -1,7 +1,33 @@
-import React from 'react';
+// src/components/Common/Header.js
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import styled from 'styled-components';
 
 const Header = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+  
+  // State to track whether the user is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Default to not logged in
+
+  
+  // Navigation handlers
+  const handleLoginClick = () => {
+    navigate('/login'); 
+  };
+
+  const handleSignupClick = () => {
+    navigate('/signup'); 
+  };
+
+  // Handle logout
+  const handleLogout = () => {
+    // Perform logout actions (e.g., clear user data, make API call to log out)
+    // For now, just update the state to not logged in
+    setIsLoggedIn(false);
+    // Navigate to the home page or login page after logging out
+    navigate('/');
+  };
+
   return (
     <HeaderContainer>
       <Logo>
@@ -17,8 +43,16 @@ const Header = () => {
         <NavItem href="#">Reviews</NavItem>
       </Nav>
       <ButtonGroup>
-        <Button primary>Log in</Button>
-        <Button>Sign up</Button>
+        {isLoggedIn ? (
+          // 로그인한 경우 로그아웃 버튼 보여주기
+          <Button primary onClick={handleLogout}>Log out</Button>
+        ) : (
+          // 로그아웃한 경우 login, signup 버튼
+          <>
+            <Button primary onClick={handleLoginClick}>Log in</Button>
+            <Button onClick={handleSignupClick}>Sign up</Button>
+          </>
+        )}
       </ButtonGroup>
     </HeaderContainer>
   );

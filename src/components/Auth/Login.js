@@ -1,20 +1,24 @@
+// src/components/Auth/Login.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import styled from 'styled-components';
 
 const Login = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
 
+  // State to hold email and password input values
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-
+  // Handle form submission
   const handleLogin = async () => {
     const requestBody = {
       email: email,
-      pw: password
+      pw: password,
     };
 
     try {
-      const response = await fetch('http://localhost:8080/common/user/login', {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/common/user/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,12 +33,16 @@ const Login = () => {
       const data = await response.json();
       console.log('Login successful:', data);
 
-      // 로그인 성공 로직 추가(redirect)
+      // 로그인 성공 로직 (redirect) 추가
 
     } catch (error) {
       console.error('Error during login:', error);
-      // 로그인 에러 핸들링 추가
+      // 로그인 실패 로직 추가
     }
+  };
+
+  const goToSignup = () => {
+    navigate('/signup'); 
   };
 
   return (
@@ -45,25 +53,25 @@ const Login = () => {
           label="email" 
           placeholder="이메일을 입력해주세요."
           value={email}
-          onChange={(e) => setEmail(e.target.value)} // Update email state
+          onChange={(e) => setEmail(e.target.value)}
         />
         <InputField 
           label="password" 
           placeholder="비밀번호를 입력해주세요."
           value={password}
-          onChange={(e) => setPassword(e.target.value)} // Update password state
-          type="password" // Mask the password input
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
         />
         <ButtonGroup>
-          <Button primary onClick={handleLogin}>로그인</Button> {/* Trigger handleLogin */}
+          <Button primary onClick={handleLogin}>로그인</Button>
         </ButtonGroup>
         <ButtonGroup>
-          <Button>회원가입</Button>
+          <Button onClick={goToSignup}>회원가입</Button> {/* Navigate to signup on click */}
         </ButtonGroup>
       </Form>
     </LoginContainer>
   );
-}
+};
 
 export default Login;
 
@@ -120,7 +128,7 @@ const InputField = ({ label, placeholder, value, onChange, type = "text" }) => {
       />
     </Field>
   );
-}
+};
 
 const Field = styled.div`
   width: 100%;
