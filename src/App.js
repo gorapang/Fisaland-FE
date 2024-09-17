@@ -9,7 +9,7 @@ import MeetingDetailPage from './pages/Meetings/MeetingDetailPage';
 import CreateMeetingPage from './pages/Meetings/CreateMeetingPage';
 import MyMeetingsPage from './pages/Meetings/MyMeetingsPage';
 import MarketListPage from './pages/Market/MarketListPage';
-import MarketReviewPage from './pages/Market/MarketDetailPage';
+import MarketDetailPage from './pages/Market/MarketDetailPage';
 import WriteReviewPage from './pages/Reviews/WriteReviewPage';
 import EditReviewPage from './pages/Reviews/EditReviewPage';
 import MyReviewsPage from './pages/Reviews/MyReviewsPage';
@@ -34,7 +34,7 @@ function App() {
 
         {/* 마켓 관련 페이지 */}
         <Route path="/market" element={<MarketListPage />} />  {/* 마켓 리스트 페이지 */}
-        <Route path="/market/:id/review" element={<MarketReviewPage />} />  {/* 특정 마켓 리뷰(디테일) 페이지 */}
+        <Route path="/market/:id/review" element={<MarketDetailPage />} />  {/* 특정 마켓 리뷰(디테일) 페이지 */}
 
         {/* 리뷰 관련 페이지 */}
         <Route path="/reviews/create" element={<WriteReviewPage />} />  {/* 리뷰 작성 페이지 */}
